@@ -23,12 +23,6 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-        <link rel="apple-touch-icon"  sizes="180x180" href="../public/favicon/apple-touch-icon.png"/>
-        <link rel="icon" type="image/png" sizes="32x32" href="../public/favicon/favicon-32x32.png"/>
-        <link rel="icon" type="image/png" sizes="16x16" href="../public/favicon/favicon-16x16.png"/>
-        <link rel="icon" type="image/x-icon" href="../public/favicon/favicon.ico"/>
-        <link rel="manifest" href="../public/favicon/site.webmanifest"/>
-
         <meta charSet="UTF-8"/>
         <meta name="description" content="This is a news website, contains news from renowned platforms like Inshorts, Google News, etc."/>
         <meta name="keywords" content="News,Inshorts, Google News,Breaking News, Headlines"/>
