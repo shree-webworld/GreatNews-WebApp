@@ -4,7 +4,8 @@ import Link from 'next/link';
 import {useForm} from 'react-hook-form';
 import Preloader from '../components/Preloader';
 
-export default function inshorts_news()
+
+export default function Inshorts_News()
 {
 
   let [news, setNews] = useState([]);
@@ -38,7 +39,7 @@ export default function inshorts_news()
                 }
 
                 let getNews =
-                    async() =>{ 
+                    async() =>{
                                   try
                                    {
                                      await axios.get(`https://inshortsapi.vercel.app/news?category=all`)

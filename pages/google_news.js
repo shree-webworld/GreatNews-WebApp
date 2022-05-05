@@ -4,7 +4,8 @@ import Link from 'next/link';
 import {useForm} from 'react-hook-form';
 import Preloader from '../components/Preloader';
 
-export default function google_news()
+
+export default function Google_News()
 {
 
   let [news, setNews] = useState([]);
