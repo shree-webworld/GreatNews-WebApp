@@ -17,7 +17,7 @@ export default function Home()
                     try
                      { //console.log(`The value is `+Object.values(data));//The value is [object Object]
                       let category_value = Object.values(data);
-                      let INDEXKEY2 = process.env.NEXT_PUBLIC_INDEXKEY2;
+                      let INDEXKEY2 = process.env.NEXT_PUBLIC_INDEXKEY_TWO;
 
                        await axios.get(`https://newsapi.org/v2/everything?q=${category_value}&apiKey=${INDEXKEY2}`)
                        .then((response) =>{
@@ -43,7 +43,7 @@ export default function Home()
 
                                   try
                                    {
-                                     let INDEXKEY1 = process.env.NEXT_PUBLIC_INDEXKEY1;
+                                     let INDEXKEY1 = process.env.NEXT_PUBLIC_INDEXKEY_ONE;
                                      await axios.get(`https://newsapi.org/v2/top-headlines?country=in&category=general&apiKey=${INDEXKEY1}`)
                                      .then((response) =>{
                                                             //console.log(response);

@@ -16,7 +16,7 @@ export default function google_news()
                     try
                      { //console.log(`The value is `+Object.values(data));//The value is [object Object]
                       let category_value = Object.values(data);
-                      let GNEWSKEY2 = process.env.NEXT_PUBLIC_GNEWSKEY2;
+                      let GNEWSKEY2 = process.env.NEXT_PUBLIC_GNEWSKEY_TWO;
 
                        await axios.get(`https://gnews.io/api/v4/search?q=${category_value[1]}&lang=${category_value[0]}&token=${GNEWSKEY2}`)
                        .then((response) =>{
@@ -40,7 +40,7 @@ export default function google_news()
                 let getNews =
                     async() =>{
                                   try
-                                   { let GNEWSKEY1 = process.env.NEXT_PUBLIC_GNEWSKEY1;
+                                   { let GNEWSKEY1 = process.env.NEXT_PUBLIC_GNEWSKEY_ONE;
                                      await axios.get(`https://gnews.io/api/v4/top-headlines?lang=en&token=${GNEWSKEY1}`)
                                      .then((response) =>{
                                                             //console.log(response);
