@@ -7,7 +7,7 @@ export default function Navbar()
     <nav className="navbar bg-blue-600 text-primary-content px-10  fixed top-0  z-50" style={{ fontFamily: "'Raleway', sans-serif" }}>
       <div className="flex-1">
         <Link href="/">
-          <a className="btn btn-ghost font-bold text-3xl normal-case" >GreatNews</a>
+          <a className="btn btn-ghost font-bold text-3xl normal-case" >GreatNews24x7</a>
         </Link>
       </div>
         <div className="flex-none">

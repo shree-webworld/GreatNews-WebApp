@@ -10,19 +10,23 @@ export default function Home()
 
   const [loading, setLoading] = useState(false);
   let [news, setNews] = useState([]);
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, watch } = useForm();
+  let NEWS_DATA = process.env.NEXT_PUBLIC_NEWS_DATA;
 
   let getSelectedNews =
-      async(data) =>{
+      async() =>{
                     try
                      { //console.log(`The value is `+Object.values(data));//The value is [object Object]
-                      let category_value = Object.values(data);
-                      let INDEXKEY2 = process.env.NEXT_PUBLIC_INDEXKEY_TWO;
+                      // let category_value = Object.values(data);
+                      let category_value = watch("news_categories");
+                      // let INDEXKEY2 = process.env.NEXT_PUBLIC_INDEXKEY_TWO;
 
-                       await axios.get(`https://newsapi.org/v2/everything?q=${category_value}&apiKey=${INDEXKEY2}`)
+
+                       // await axios.get(`https://newsapi.org/v2/everything?q=${category_value}&apiKey=${INDEXKEY2}`)
+                       await axios.get(`https://newsdata.io/api/1/news?apikey=${NEWS_DATA}&q=${category_value}&language=en`)
                        .then((response) =>{
-                                             //console.log(`${category_value}`);
-                                              setNews(response.data.articles);
+                                             console.log(`${category_value}`);
+                                              setNews(response.data.results);
                                               setLoading(true);
                                           }
                             )
@@ -43,11 +47,13 @@ export default function Home()
 
                                   try
                                    {
-                                     let INDEXKEY1 = process.env.NEXT_PUBLIC_INDEXKEY_ONE;
-                                     await axios.get(`https://newsapi.org/v2/top-headlines?country=in&category=general&apiKey=${INDEXKEY1}`)
+                                     // let INDEXKEY1 = process.env.NEXT_PUBLIC_INDEXKEY_ONE;
+
+                                     // await axios.get(`https://newsapi.org/v2/top-headlines?country=in&category=general&apiKey=${INDEXKEY1}`)
+                                     await axios.get(`https://newsdata.io/api/1/news?apikey=${NEWS_DATA}&category=top&language=en`)
                                      .then((response) =>{
                                                             //console.log(response);
-                                                            setNews(response.data.articles);
+                                                            setNews(response.data.results);
                                                             setLoading(true);
                                                         }
                                           )
@@ -75,22 +81,9 @@ export default function Home()
 
   <section className="text-gray-600 body-font bg-gray-300">
     <div className="flex flex-row-reverse">
-     <div className="form-control mt-24 mr-32 w-56">
+     <div className="form-control mt-24 mr-28 w-80">
       <form onSubmit={handleSubmit(getSelectedNews)} className="flex flex-row space-x-3">
-      <select name="news_categories" defaultValue={'DEFAULT'} {...register("news_categories")} className="select select-primary w-full max-w-xs">
-        <option value="DEFAULT" disabled>Select the news category</option>
-        <option value="general">General News</option>
-        <option value="india">India News</option>
-        <option value="business">Business</option>
-        <option value="sports">Sports</option>
-        <option value="world">World</option>
-        <option value="politics">Politics</option>
-        <option value="mobile">Mobile</option>
-        <option value="entertainment">Entertainment</option>
-        <option value="health">Health</option>
-        <option value="science">Science</option>
-        <option value="automobile">Automobile</option>
-      </select>
+      <input type="text" placeholder="Search News Here" autoComplete="off" name="news_categories" {...register("news_categories")} className="input input-bordered input-primary w-full max-w-xs" />
       <button className="btn btn-outline btn-primary" type="submit">Read It</button>
       </form>
     </div>
@@ -105,17 +98,17 @@ export default function Home()
                                                       <div className="p-4 md:w-1/3" key = {index}>
                                                        <div className="card w-96 h-full bg-indigo-100 shadow-lg shadow-indigo-300">
                                                         <figure className="px-10 pt-10 flex flex-col">
-                                                          <img src={currentElement.urlToImage} alt="News articles" className="rounded-xl mb-2" />
-                                                          <figcaption className="tracking-widest text-xs title-font font-medium text-white badge badge-primary badge-md">Source: {currentElement.source.name}</figcaption>
+                                                          <img src={currentElement.image_url} alt="News articles" className="rounded-xl mb-2" />
+                                                          <figcaption className="tracking-widest text-xs title-font font-medium text-white badge badge-primary badge-md">Source: {currentElement.source_id}</figcaption>
                                                         </figure>
                                                         <div className="card-body ">
                                                           <h2 className="card-title text-lg font-bold text-gray-900" style={{fontFamily: "'Montserrat', sans-serif"}}>{currentElement.title}</h2>
                                                           <p>{currentElement.description}</p>
                                                           <div className="grid grid-cols-2">
-                                                            <Link href={currentElement.url}>
+                                                            <Link href={currentElement.link}>
                                                               <a className="link link-primary link-hover inline-flex items-center md:mb-2 lg:mb-0" target="_blank">Learn More ➜</a>
                                                             </Link>
-                                                            <span>{currentElement.publishedAt}</span>
+                                                            <span>{currentElement.pubDate}</span>
                                                           </div>
                                                         </div>
                                                       </div>
