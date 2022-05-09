@@ -17,15 +17,15 @@ export default function Home()
       async() =>{
                     try
                      { //console.log(`The value is `+Object.values(data));//The value is [object Object]
-                      // let category_value = Object.values(data);
+
                       let category_value = watch("news_categories");
-                      // let INDEXKEY2 = process.env.NEXT_PUBLIC_INDEXKEY_TWO;
+
 
 
                        // await axios.get(`https://newsapi.org/v2/everything?q=${category_value}&apiKey=${INDEXKEY2}`)
                        await axios.get(`https://newsdata.io/api/1/news?apikey=${NEWS_DATA}&q=${category_value}&language=en`)
                        .then((response) =>{
-                                             console.log(`${category_value}`);
+                                             //console.log(`${category_value}`);
                                               setNews(response.data.results);
                                               setLoading(true);
                                           }
@@ -47,7 +47,7 @@ export default function Home()
 
                                   try
                                    {
-                                     // let INDEXKEY1 = process.env.NEXT_PUBLIC_INDEXKEY_ONE;
+
 
                                      // await axios.get(`https://newsapi.org/v2/top-headlines?country=in&category=general&apiKey=${INDEXKEY1}`)
                                      await axios.get(`https://newsdata.io/api/1/news?apikey=${NEWS_DATA}&category=top&language=en`)
