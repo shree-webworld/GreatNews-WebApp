@@ -11,7 +11,7 @@ export default function Inshorts_News()
   let [news, setNews] = useState([]);
   const { register, handleSubmit } = useForm();
   const [loading, setLoading] = useState(false);
- let THE_NEWS_API = process.env.NEXT_PUBLIC_THE_NEWS_API;
+ 
 
   let getSelectedNews =
       async(data) =>{
@@ -19,11 +19,10 @@ export default function Inshorts_News()
                      { //console.log(`The value is `+data);//The value is [object Object]
                       let category_value = Object.values(data);
 
-                       // await axios.get(`https://inshortsapi.vercel.app/news?category=${category_value}`)
-                       await axios.get(`https://api.thenewsapi.com/v1/news/top?api_token=${THE_NEWS_API}&categories=${category_value}&language=en`)
+                      await axios.get(`https://inshortsv2.vercel.app/news?type=${category_value}`)
                        .then((response) =>{
                                               //console.log(response.data.category);
-                                              setNews(response.data.data);
+                                              setNews(response.data.articles);
                                               setLoading(true);
                                           }
                             )
@@ -43,10 +42,10 @@ export default function Inshorts_News()
                     async() =>{
                                   try
                                    {
-                                     // await axios.get(`https://inshortsapi.vercel.app/news?category=all`)
-                                     await axios.get(`https://api.thenewsapi.com/v1/news/top?api_token=${THE_NEWS_API}&categories=general&language=en`)
+
+                                     await axios.get(`https://inshortsv2.vercel.app/news?type=all_news`)
                                      .then((response) =>{
-                                                            setNews(response.data.data);
+                                                            setNews(response.data.articles);
                                                             setLoading(true);
                                                         }
                                           )
@@ -77,16 +76,24 @@ export default function Inshorts_News()
       <form onSubmit={handleSubmit(getSelectedNews)} className="flex flex-row space-x-3">
       <select name="news_categories" defaultValue={'DEFAULT'} {...register("news_categories")} className="select select-primary w-full max-w-xs selectCategory">
         <option value="DEFAULT" disabled >Select the News Category</option>
-        <option value="general">General</option>
+        <option value="all_news">General</option>
+        <option value="trending">Trending</option>
+        <option value="top_stories">Top Stories</option>
+        <option value="national">National</option>
         <option value="business">Business</option>
         <option value="sports">Sports</option>
         <option value="politics">Politics</option>
-        <option value="tech">Technology</option>
+        <option value="technology">Technology</option>
         <option value="entertainment">Entertainment</option>
         <option value="science">Science</option>
+        <option value="education">Education</option>
         <option value="health">Health</option>
-        <option value="food">Food</option>
+        <option value="fashion">Fashion</option>
         <option value="travel">Travel</option>
+        <option value="world">World</option>
+        <option value="automobile">Automobile</option>
+        <option value="hatke">Hatke</option>
+        <option value="miscellaneous">Miscellaneous</option>
       </select>
       <button className="btn btn-outline btn-primary" type="submit">Read It</button>
     </form>
@@ -104,16 +111,16 @@ export default function Inshorts_News()
                                                        <div className="card w-96 h-full bg-indigo-100 shadow-lg shadow-indigo-300">
                                                         <figure className="px-10 pt-10 flex flex-col">
                                                           <img src={currentElement.image_url} alt="News articles" className="rounded-xl mb-2" />
-                                                          <figcaption className="tracking-widest text-xs title-font font-medium text-white badge badge-primary badge-md">Source: {currentElement.source}</figcaption>
+                                                          <figcaption className="tracking-widest text-xs title-font font-medium text-white badge badge-primary badge-md">Source: {currentElement.source_name}</figcaption>
                                                         </figure>
                                                         <div className="card-body ">
                                                           <h2 className="card-title text-lg font-bold text-gray-900" style={{fontFamily: "'Montserrat', sans-serif"}}>{currentElement.title}</h2>
                                                           <p>{currentElement.description}</p>
                                                           <div className="grid grid-cols-2">
-                                                            <Link href={currentElement.url}>
+                                                            <Link href={currentElement.source_url}>
                                                               <a className="link link-primary link-hover inline-flex items-center md:mb-2 lg:mb-0" target="_blank">Learn More ➜</a>
                                                             </Link>
-                                                            <span>{currentElement.published_at}</span>
+                                                            <span></span>
                                                           </div>
                                                         </div>
                                                       </div>
